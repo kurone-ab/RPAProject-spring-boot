@@ -8,12 +8,12 @@ import javax.persistence.*;
 @Setter
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "user")
+@Table(name = "user", uniqueConstraints = @UniqueConstraint(columnNames = {"id", "email"}))
 public class User {
     @Id
     @GeneratedValue
     private int id;
-    @Column(length = 40)
+    @Column(length = 40, unique = true)
     private String email;
     private String name;
     private String phoneNum;

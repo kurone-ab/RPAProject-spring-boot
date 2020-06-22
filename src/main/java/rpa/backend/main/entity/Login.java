@@ -15,6 +15,7 @@ public class Login {
     @ManyToOne
     @JoinColumn
     private User user;
+    @Column(unique = true, length = 40)
     private String uid;
     private String password;
 

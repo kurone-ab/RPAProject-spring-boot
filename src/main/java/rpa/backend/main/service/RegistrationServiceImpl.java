@@ -1,15 +1,18 @@
 package rpa.backend.main.service;
 
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import rpa.backend.main.entity.Login;
 import rpa.backend.main.entity.User;
+import rpa.backend.main.exception.UniqueConstraintViolationException;
 import rpa.backend.main.repository.LoginRepository;
 import rpa.backend.main.repository.UserRepository;
 
 import javax.mail.MessagingException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Optional;
 
 @Service
@@ -28,7 +31,9 @@ public class RegistrationServiceImpl implements RegistrationService {
     }
 
     @Override
-    public boolean register(String name, String uid, String upw, String email, String phone) throws NoSuchAlgorithmException, MessagingException {
+    public boolean register(String name, String uid, String upw, String email, String phone) throws NoSuchAlgorithmException, MessagingException, UniqueConstraintViolationException {
+        Optional<User> userOptional = this.userRepository.findByEmail(email);
+        if (userOptional.isPresent()) throw new UniqueConstraintViolationException();
         User user = this.userRepository.save(User.builder()
                 .email(email)
                 .name(name)

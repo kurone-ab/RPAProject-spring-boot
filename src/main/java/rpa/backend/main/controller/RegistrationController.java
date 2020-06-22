@@ -1,14 +1,19 @@
 package rpa.backend.main.controller;
 
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import rpa.backend.main.dto.RegistrationDTO;
+import rpa.backend.main.exception.UniqueConstraintViolationException;
 import rpa.backend.main.service.RegistrationService;
 
 import javax.mail.MessagingException;
 import javax.websocket.server.PathParam;
 import java.security.NoSuchAlgorithmException;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 @RestController
 @RequestMapping("/register")
@@ -21,13 +26,16 @@ public class RegistrationController {
     }
 
     @PostMapping("/new")
-    public boolean registerNewClient(@PathParam("name") String name, @PathParam("uid") String uid, @PathParam("upw") String upw, @PathParam("email") String email, @PathParam("phone") String phone) {
+    @ResponseBody
+    public RegistrationDTO registerNewClient(@PathParam("name") String name, @PathParam("uid") String uid, @PathParam("upw") String upw, @PathParam("email") String email, @PathParam("phone") String phone) {
         try {
-            return this.registrationService.register(name, uid, upw, email, phone);
+            return RegistrationDTO.builder().result(this.registrationService.register(name, uid, upw, email, phone)).build();
         } catch (NoSuchAlgorithmException | MessagingException e) {
             e.printStackTrace();
+            return RegistrationDTO.builder().error("인증 이메일 발송에 실패했습니다!").build();
+        } catch (UniqueConstraintViolationException exception) {
+            return RegistrationDTO.builder().error("중복된 이메일 입니다!").build();
         }
-        return false;
     }
 
     @PostMapping("/auth")
