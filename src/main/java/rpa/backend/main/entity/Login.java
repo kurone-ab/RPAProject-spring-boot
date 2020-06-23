@@ -15,14 +15,11 @@ public class Login {
     @ManyToOne
     @JoinColumn
     private User user;
-    @Column(unique = true, length = 40)
-    private String uid;
     private String password;
 
     @Builder
-    public Login(User user, String uid, String password) {
+    public Login(User user, String password) {
         this.user = user;
-        this.uid = uid;
         this.password = password;
     }
 }

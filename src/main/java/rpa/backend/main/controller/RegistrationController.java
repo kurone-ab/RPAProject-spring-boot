@@ -27,9 +27,9 @@ public class RegistrationController {
 
     @PostMapping("/new")
     @ResponseBody
-    public RegistrationDTO registerNewClient(@PathParam("name") String name, @PathParam("uid") String uid, @PathParam("upw") String upw, @PathParam("email") String email, @PathParam("phone") String phone) {
+    public RegistrationDTO registerNewClient(@PathParam("name") String name, @PathParam("upw") String upw, @PathParam("email") String email, @PathParam("phone") String phone) {
         try {
-            return RegistrationDTO.builder().result(this.registrationService.register(name, uid, upw, email, phone)).build();
+            return RegistrationDTO.builder().result(this.registrationService.register(name, upw, email, phone)).build();
         } catch (NoSuchAlgorithmException | MessagingException e) {
             e.printStackTrace();
             return RegistrationDTO.builder().error("인증 이메일 발송에 실패했습니다!").build();

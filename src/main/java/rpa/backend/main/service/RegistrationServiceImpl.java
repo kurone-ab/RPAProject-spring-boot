@@ -31,7 +31,7 @@ public class RegistrationServiceImpl implements RegistrationService {
     }
 
     @Override
-    public boolean register(String name, String uid, String upw, String email, String phone) throws NoSuchAlgorithmException, MessagingException, UniqueConstraintViolationException {
+    public boolean register(String name, String upw, String email, String phone) throws NoSuchAlgorithmException, MessagingException, UniqueConstraintViolationException {
         Optional<User> userOptional = this.userRepository.findByEmail(email);
         if (userOptional.isPresent()) throw new UniqueConstraintViolationException();
         User user = this.userRepository.save(User.builder()
@@ -42,7 +42,6 @@ public class RegistrationServiceImpl implements RegistrationService {
                 .authenticationValue(SHA256Algorithm.getHashedValue(String.valueOf(this.secureRandom.nextInt())))
                 .build());
         this.loginRepository.save(Login.builder()
-                .uid(uid)
                 .password(SHA256Algorithm.getHashedValue(upw))
                 .user(user)
                 .build());
