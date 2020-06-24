@@ -32,6 +32,7 @@ public class RegistrationServiceImpl implements RegistrationService {
     }
 
     @Override
+    //회원가입처리
     public boolean register(String name, String upw, String email, String phone) throws NoSuchAlgorithmException, MessagingException, UniqueConstraintViolationException {
         Optional<User> userOptional = this.userRepository.findByEmail(email);
         this.secureRandom.setSeed(System.currentTimeMillis());
@@ -54,6 +55,7 @@ public class RegistrationServiceImpl implements RegistrationService {
 
 
     @Override
+    //이메일 인증 처리
     public boolean authenticate(int id, String authenticationValue) {
         Optional<User> userOptional = this.userRepository.findById(id);
         if (userOptional.isEmpty()) return false;

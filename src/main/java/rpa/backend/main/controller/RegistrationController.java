@@ -27,6 +27,7 @@ public class RegistrationController {
 
     @PostMapping("/new")
     @ResponseBody
+    //"/register/new"으로 접속해 유저의 가입 절차를 진행
     public RegistrationDTO registerNewClient(@PathParam("name") String name, @PathParam("upw") String upw, @PathParam("email") String email, @PathParam("phone") String phone) {
         try {
             return RegistrationDTO.builder().result(this.registrationService.register(name, upw, email, phone)).build();
@@ -39,6 +40,7 @@ public class RegistrationController {
     }
 
     @PostMapping("/auth")
+    //"/register/auth"으로 접속해 유저의 이메일 인증 절차를 진행
     public boolean emailAuthenticate(@PathParam("id") int id, @PathParam("value") String value) {
         return this.registrationService.authenticate(id, value);
     }

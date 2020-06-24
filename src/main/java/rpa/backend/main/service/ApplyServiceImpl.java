@@ -22,6 +22,7 @@ public class ApplyServiceImpl implements ApplyService {
     }
 
     @Override
+    //서류 지원하기
     public boolean apply(int id, String introduce, String study, String experience, String github) {
         Optional<User> userOptional = this.userRepository.findById(id);
         if (userOptional.isEmpty()) return false;
@@ -38,6 +39,7 @@ public class ApplyServiceImpl implements ApplyService {
     }
 
     @Override
+    //모든 지원자 리스트 조회하기
     public List<ApplyDTO> getList() {
         List<Apply> applyList = this.applyRepository.findAll();
         List<ApplyDTO> applyDTOList = new ArrayList<>();
@@ -52,6 +54,7 @@ public class ApplyServiceImpl implements ApplyService {
     }
 
     @Override
+    //지원자의 상세 사항조회하기
     public ApplyDTO getDetail(int id) {
         Optional<Apply> applyOptional = this.applyRepository.findById(id);
         if (applyOptional.isPresent()) {

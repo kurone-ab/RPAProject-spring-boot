@@ -6,6 +6,7 @@ import lombok.Getter;
 
 @Getter
 @JsonInclude(JsonInclude.Include.NON_NULL)
+//front로 User데이터를 보내기 위한 DTO
 public class UserDTO {
     private final int id;
     private final String name;

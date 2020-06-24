@@ -19,6 +19,7 @@ public class AnalysisServiceImpl implements AnalysisService {
     }
 
     @Override
+    //전체 지원자의 선택한 언어의 GitHub Repository Clone 진행
     public boolean allAnalysis(List<String> languageList) {
         List<Apply> applyList = this.applyRepository.findAll();
         for (Apply apply : applyList) {
@@ -27,6 +28,7 @@ public class AnalysisServiceImpl implements AnalysisService {
         return true;
     }
 
+    //RPA Robot Console 실행
     private void executeRobot(String github, String name, List<String> languageList) {
         try {
             String[] command = new String[]{"powershell", "C:/Users/tjdwp/AppData/Local/UiPath/app-20.4.1/UiRobot.exe", "-f", "C:/Users/tjdwp/Documents/2020-1/rpa/GitClone/RepositoryAnalysis.xaml", "--input", "\\\"{'githubLink' : '" + github + "', 'languageList' : '" + this.convertArrayToString(languageList) + "'}\\\""};
@@ -36,12 +38,12 @@ public class AnalysisServiceImpl implements AnalysisService {
             String result;
             while ((result = stdOut.readLine()) != null) {
                 System.out.println(this.renameFolder(result, name));
-                ;
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 
     private String convertArrayToString(List<String> languageList) {
         StringBuilder builder = new StringBuilder();

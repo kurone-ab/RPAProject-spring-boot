@@ -9,6 +9,7 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
+//Apply Table
 public class Apply {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

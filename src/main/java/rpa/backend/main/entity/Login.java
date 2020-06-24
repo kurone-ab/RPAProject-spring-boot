@@ -8,6 +8,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+//Login Table
 public class Login {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

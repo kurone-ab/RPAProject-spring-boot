@@ -19,11 +19,13 @@ public class AdminController {
     }
 
     @GetMapping("/apply/list")
+    //"/admin/apply/list"으로 접속해 지원자 리스트를 조회하는 절차를 진행
     public List<ApplyDTO> getApplyList() {
         return this.applyService.getList();
     }
 
     @GetMapping("/apply/detail")
+    //"/admin/apply/detail"으로 접속해 지원자 서류를 조회하는 절차를 진행
     public ApplyDTO getDetail(@RequestParam("id") int id) {
         return this.applyService.getDetail(id);
     }

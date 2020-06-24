@@ -4,6 +4,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class SHA256Algorithm {
+
+    //해싱 알고리즘
     public static String getHashedValue(String value) throws NoSuchAlgorithmException {
         byte[] bytes = value.getBytes();
         MessageDigest digest = MessageDigest.getInstance("SHA-256");

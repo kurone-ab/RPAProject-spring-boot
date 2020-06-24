@@ -20,6 +20,7 @@ public class MailServiceImpl implements MailService {
     }
 
     @Override
+    //인증 메일 발송하기
     public void sendMail(String email, String link) throws MessagingException {
         MimeMessage message = javaMailSender.createMimeMessage();
         message.setSubject("(주)퐁신 이메일 인증");

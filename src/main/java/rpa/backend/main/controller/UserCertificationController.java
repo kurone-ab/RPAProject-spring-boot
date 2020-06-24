@@ -15,12 +15,13 @@ import java.security.NoSuchAlgorithmException;
 public class UserCertificationController {
     private final UserService userService;
 
-    @Autowired()
+    @Autowired
     public UserCertificationController(UserService userService) {
         this.userService = userService;
     }
 
     @PostMapping("/login")
+    //"/user/login"으로 접속해 유저의 로그인 절차를 진행
     public UserDTO userCertification(@RequestParam("id")String email, @RequestParam("pw") String pw) {
         try {
             return this.userService.userCertificate(email, pw);

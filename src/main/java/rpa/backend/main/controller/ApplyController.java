@@ -14,6 +14,7 @@ public class ApplyController {
     }
 
     @PostMapping("/apply")
+    //"/apply"으로 접속해 유저의 서류 지원 절차를 진행
     public boolean apply(@RequestParam("id") int id, @RequestParam("introduce") String introduce, @RequestParam("study") String study, @RequestParam("experience") String experience, @RequestParam("github") String github) {
         return this.applyService.apply(id, introduce, study, experience, github);
     }

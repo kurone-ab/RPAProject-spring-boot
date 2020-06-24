@@ -6,6 +6,7 @@ import lombok.Getter;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Getter
+//front로 지원 데이터를 보내기 위한 DTO
 public class ApplyDTO {
     private final int id;
     private final int userId;

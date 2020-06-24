@@ -10,6 +10,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "user", uniqueConstraints = @UniqueConstraint(columnNames = {"id", "email"}))
+//User Table
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

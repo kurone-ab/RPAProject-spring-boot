@@ -19,6 +19,7 @@ public class AnalysisController {
 
 
     @PostMapping("/list")
+    //"/analysis/list"으로 접속해 지원자의 GitHub Repository Clone 절차를 진행
     public boolean allAnalysis(@RequestParam("languageList") List<String> languageList) {
         System.out.println(languageList);
         return this.analysisService.allAnalysis(languageList);

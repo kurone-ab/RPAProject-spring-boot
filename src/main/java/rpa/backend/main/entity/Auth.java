@@ -1,5 +1,5 @@
 package rpa.backend.main.entity;
 
 public enum Auth {
-    NORMAL, ADMIN
+    NORMAL/*일반 유저*/, ADMIN/*관리자*/
 }
