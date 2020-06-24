@@ -3,6 +3,7 @@ package rpa.backend.main.service;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import rpa.backend.main.entity.Auth;
 import rpa.backend.main.entity.Login;
 import rpa.backend.main.entity.User;
 import rpa.backend.main.exception.UniqueConstraintViolationException;
@@ -33,13 +34,15 @@ public class RegistrationServiceImpl implements RegistrationService {
     @Override
     public boolean register(String name, String upw, String email, String phone) throws NoSuchAlgorithmException, MessagingException, UniqueConstraintViolationException {
         Optional<User> userOptional = this.userRepository.findByEmail(email);
+        this.secureRandom.setSeed(System.currentTimeMillis());
         if (userOptional.isPresent()) throw new UniqueConstraintViolationException();
         User user = this.userRepository.save(User.builder()
                 .email(email)
                 .name(name)
                 .phoneNum(phone)
                 .authenticated(false)
-                .authenticationValue(SHA256Algorithm.getHashedValue(String.valueOf(this.secureRandom.nextInt())))
+                .authenticationValue(SHA256Algorithm.getHashedValue(String.valueOf(this.secureRandom.nextDouble())))
+                .auth(Auth.NORMAL)
                 .build());
         this.loginRepository.save(Login.builder()
                 .password(SHA256Algorithm.getHashedValue(upw))

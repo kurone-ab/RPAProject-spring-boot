@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import rpa.backend.main.entity.User;
 import rpa.backend.main.repository.UserRepository;
+import rpa.backend.main.service.SHA256Algorithm;
 
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.HashMap;
 import java.util.Map;
@@ -26,10 +28,11 @@ class MainApplicationTests {
 
     @Test
     void runtimeExe() {
-        Map<String, String> map = new HashMap<>();
-        map.put("key", "value");
-        map.put("key1", "value1");
-        System.out.println(map.toString().replace("=", " : "));
+        try {
+            System.out.println(SHA256Algorithm.getHashedValue("iamadmin!"));
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test

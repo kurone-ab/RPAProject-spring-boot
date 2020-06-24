@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import rpa.backend.main.dto.UserDTO;
 import rpa.backend.main.service.UserService;
 
 import java.security.NoSuchAlgorithmException;
@@ -20,12 +21,12 @@ public class UserCertificationController {
     }
 
     @PostMapping("/login")
-    public boolean userCertification(@RequestParam("id")String email, @RequestParam("pw") String pw) {
+    public UserDTO userCertification(@RequestParam("id")String email, @RequestParam("pw") String pw) {
         try {
             return this.userService.userCertificate(email, pw);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
-            return false;
+            return UserDTO.builder().build();
         }
     }
 }
